@@ -164,7 +164,7 @@ const ShopByVideos: React.FC = () => {
                             thumbnail_url: "",
                         });
                     }}
-                    className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-lg "
+                    className="bg-[#000] text-white hover:bg-red-700 px-4 py-2 rounded-lg "
                 >
                     + Add Video
                 </button>
@@ -236,7 +236,7 @@ const ShopByVideos: React.FC = () => {
                                         </button>
                                         <button
                                             onClick={() => handleDelete(video.id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
+                                            className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-[#000] transition"
                                         >
                                             Delete
                                         </button>
@@ -306,7 +306,7 @@ const ShopByVideos: React.FC = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-lg "
+                                    className="px-4 py-2 bg-[#000] text-white hover:bg-red-700 rounded-lg "
                                 >
                                     {isEditing ? "Update" : "Submit"}
                                 </button>

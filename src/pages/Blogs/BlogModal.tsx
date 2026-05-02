@@ -189,7 +189,7 @@ function BlogModal({ open, close, userId, editData }: any) {
 
 
 
-                        {apiError && <p className="text-red-600">{apiError}</p>}
+                        {apiError && <p className="text-[#000]">{apiError}</p>}
 
                         <div className="flex justify-end gap-2">
                             <button

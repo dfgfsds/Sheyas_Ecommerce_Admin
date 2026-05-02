@@ -72,7 +72,7 @@ export default function ManageUserModal({ user, onClose, onUpdate, onRemove }: M
                 type="button"
                 variant="outline"
                 onClick={() => onRemove(user.id)}
-                className="text-red-600 hover:text-red-700"
+                className="text-[#000] hover:text-red-700"
               >
                 Remove User
               </Button>

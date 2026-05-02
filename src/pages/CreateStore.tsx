@@ -170,7 +170,7 @@ export default function CreateStore() {
             </div>
 
             {errorMessage && (
-              <div className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded">
+              <div className="text-[#000] bg-red-100 border border-red-400 px-4 py-2 rounded">
                 {errorMessage}
               </div>
             )}
@@ -234,7 +234,7 @@ export default function CreateStore() {
     //     </div>
 
     //     {errorMessage && (
-    //       <div className="mb-4 text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded">
+    //       <div className="mb-4 text-[#000] bg-red-100 border border-red-400 px-4 py-2 rounded">
     //         {errorMessage}
     //       </div>
     //     )}
