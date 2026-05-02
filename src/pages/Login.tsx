@@ -55,7 +55,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-12">
       <div className="w-full max-w-md space-y-8 p-8 bg-white rounded-2xl shadow-lg">
-        <div className='flex justify-center '>
+        <div className='flex justify-center'>
           <img src={Logo} className="h-16 w-auto" />
         </div>
         <div>
