@@ -60,7 +60,7 @@ export function AddressForm({ openModal, handleClose, editData, setEditData, pic
     const formattedData = {
       vendor: id,
       company_name: "userName",
-      pickup_location: data?.pickup_location || '',
+      pickup_location: data?.pickup_location || 'Madurai',
       address_line1: data.address_line1,
       address_line2: data.address_line2,
       address_type: data.address_type,
