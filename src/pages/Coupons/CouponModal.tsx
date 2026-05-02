@@ -530,7 +530,7 @@
 
 
 
-//                     {apiError && <p className="text-red-600 mt-2">{apiError}</p>}
+//                     {apiError && <p className="text-[#000] mt-2">{apiError}</p>}
 
 //                     <div className="mt-6 flex justify-end space-x-2">
 //                         <Button variant="secondary" onClick={() => { close(), reset(), setEditData('') }} type="button">
@@ -1016,7 +1016,7 @@ function CouponModal({ close, editData, setEditData }: any) {
                 <input
                   type="checkbox"
                   {...register(item.name)}
-                  // keep HTML checkbox behavior; react-hook-form will manage value
+                // keep HTML checkbox behavior; react-hook-form will manage value
                 />
                 <span>{item.label}</span>
               </label>
@@ -1045,7 +1045,7 @@ function CouponModal({ close, editData, setEditData }: any) {
             />
           </div>
 
-          {apiError && <p className="text-red-600 mt-2">{apiError}</p>}
+          {apiError && <p className="text-[#000] mt-2">{apiError}</p>}
 
           <div className="mt-6 flex justify-end space-x-2">
             <Button

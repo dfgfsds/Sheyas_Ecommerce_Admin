@@ -1,7 +1,7 @@
 // components/Input.tsx
 import React from 'react';
 
-const Input = React.forwardRef(({ label, type = 'text',disabled, readOnly, error, required , ...props }: any, ref) => {
+const Input = React.forwardRef(({ label, type = 'text', disabled, readOnly, error, required, ...props }: any, ref) => {
   return (
     <div>
       <label className="block text-sm font-bold  mb-1">{label} {required && <span className="text-red-500 ml-1">*</span>}</label>
@@ -11,11 +11,10 @@ const Input = React.forwardRef(({ label, type = 'text',disabled, readOnly, error
         {...props}
         disabled={disabled}
         readOnly={readOnly}
-        className={`w-full px-3 py-1 shadow-lg border ${
-          error ? 'border-red-500' : 'border-gray-500'
-        } rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500`}
+        className={`w-full px-3 py-1 shadow-lg border ${error ? 'border-red-500' : 'border-gray-500'
+          } rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500`}
       />
-      {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
+      {error && <p className="text-sm text-[#000] mt-1">{error}</p>}
     </div>
   );
 });
