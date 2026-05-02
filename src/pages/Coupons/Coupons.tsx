@@ -25,15 +25,15 @@ function Coupons({ userId }: any) {
     const confirmDelete = async () => {
         console.log(deleteData)
         if (deleteData) {
-          setLoading(true)
-          const response = await deleteCouponApi(deleteData?.id, { deleted_by: `vendor${id}` });
-          if (response) {
-            queryClient.invalidateQueries(['getCouponData'] as InvalidateQueryFilters);
-            setDeleteModal(false);
-            setLoading(false)
-          }
+            setLoading(true)
+            const response = await deleteCouponApi(deleteData?.id, { deleted_by: `vendor${id}` });
+            if (response) {
+                queryClient.invalidateQueries(['getCouponData'] as InvalidateQueryFilters);
+                setDeleteModal(false);
+                setLoading(false)
+            }
         }
-      };
+    };
 
     return (
         <div className="border-t pt-6">
@@ -61,7 +61,7 @@ function Coupons({ userId }: any) {
                                 title="Delete Coupon"
                                 onClick={() => { setDeleteModal(!deleteModal), setDeleteData(coupon) }}
                             >
-                                <Trash2 className="h-4 w-4 text-red-600" />
+                                <Trash2 className="h-4 w-4 text-[#000]" />
                             </button>
                         </div>
 
@@ -152,7 +152,7 @@ function Coupons({ userId }: any) {
                                 type="button"
                                 onClick={confirmDelete}
                                 disabled={loading}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700 gap-2 flex"
+                                className="px-4 py-2 bg-[#000] text-white rounded-md text-sm font-medium hover:bg-red-700 gap-2 flex"
                             >
                                 Confirm Delete {loading ? (<Loader className='animate-spin' />) : ''}
                             </button>

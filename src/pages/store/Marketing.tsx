@@ -219,16 +219,15 @@ export default function Marketing() {
                         {discount.usedCount}{discount.maxUses ? `/${discount.maxUses}` : ''}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
-                          discount.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
+                        <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${discount.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          }`}>
                           {discount.active ? 'Active' : 'Inactive'}
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         <button
                           onClick={() => handleDeleteDiscount(discount.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="text-[#000] hover:text-red-900"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>

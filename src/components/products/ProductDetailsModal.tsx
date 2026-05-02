@@ -270,7 +270,7 @@ export default function ProductDetailsModal({ product, onClose, onEdit }: Produc
               </button>
               <button
                 onClick={handleConfirmDelete}
-                className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+                className="px-4 py-2 rounded bg-[#000] text-white hover:bg-red-700"
               >
                 Delete
               </button>

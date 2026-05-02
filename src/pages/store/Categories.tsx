@@ -400,15 +400,17 @@ export default function Categories() {
                 <SingleImageUpload required images={images} onChange={setImages} />
 
                 {errorMessage && (
-                  <div className="text-red-600 mb-3 text-sm">
+                  <div className="text-[#000] mb-3 text-sm">
                     {errorMessage}
                   </div>
                 )}
 
 
                 <div className="mt-5 sm:mt-6 flex justify-end space-x-2">
-                  <Button type="button" variant="outline" onClick={() => { reset(), setSelectedCategory(''), 
-                    (''), setIsModalOpen(false), setImages([]) }}>
+                  <Button type="button" variant="outline" onClick={() => {
+                    reset(), setSelectedCategory(''),
+                      (''), setIsModalOpen(false), setImages([])
+                  }}>
                     Cancel
                   </Button>
                   <Button type="submit" disabled={loading}>
@@ -440,7 +442,7 @@ export default function Categories() {
               <button
                 type="button"
                 onClick={handleDelete}
-                className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700"
+                className="px-4 py-2 bg-[#000] text-white rounded-md text-sm font-medium hover:bg-red-700"
               >
                 Confirm Delete
               </button>
