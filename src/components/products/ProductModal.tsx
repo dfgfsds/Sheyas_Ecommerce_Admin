@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Plus, Loader2, Trash2Icon } from 'lucide-react';
+import { X, Plus, Loader2, Trash2Icon, CopyMinusIcon } from 'lucide-react';
 import Button from '../Button';
 import Input from '../Input';
 import { ProductForm } from '../../types/product';
@@ -48,11 +48,11 @@ export const ProductSchema = Yup.object().shape({
     .typeError("MRP price must be a number"),
   commission: Yup.number()
     .typeError("Commission must be a number")
-    .required("Commission is required")
+    // .required("Commission is required")
     .min(0, "Commission cannot be negative"),
   cost: Yup.number()
     .typeError("Cost must be a number")
-    .required("Cost is required")
+    // .required("Cost is required")
     .min(0, "Cost cannot be negative"),
   stock_quantity: Yup.number()
     .typeError("Stock quantity must be a number")
@@ -60,24 +60,31 @@ export const ProductSchema = Yup.object().shape({
     .min(0, "Stock cannot be negative"),
 
   // 🔹 SKU
-  sku: Yup.string().required("SKU is required"),
+  sku: Yup.string()
+    .nullable()
+    .transform((value) =>
+      value === "" ? null : value
+    ),
+  // sku: Yup.string(),
+  // required("SKU is required")
+
 
   // 🔹 Dimensions
   weight: Yup.number()
     .typeError("Weight must be a number")
-    .required("Weight is required")
+    // .required("Weight is required")
     .min(0, "Weight must be positive"),
   length: Yup.number()
     .typeError("Length must be a number")
-    .required("Length is required")
+    // .required("Length is required")
     .min(0, "Length must be positive"),
   breadth: Yup.number()
     .typeError("Breadth must be a number")
-    .required("Breadth is required")
+    // .required("Breadth is required")
     .min(0, "Breadth must be positive"),
   height: Yup.number()
     .typeError("Height must be a number")
-    .required("Height is required")
+    // .required("Height is required")
     .min(0, "Height must be positive"),
 
   // 🔹 Image Upload
@@ -121,13 +128,23 @@ export const ProductSchema = Yup.object().shape({
   varieties: Yup.array()
     .of(
       Yup.object().shape({
-        product_variant_title: Yup.string().required(
-          "Product variant title is required"
-        ),
-        product_variant_description: Yup.string().required(
-          "Product variant description is required"
-        ),
-        product_variant_sku: Yup.string().required("Variant SKU is required"),
+        product_variant_title: Yup.string()
+          .required(
+            "Product variant title is required"
+          ),
+        product_variant_description: Yup.string()
+        // .required(
+        //   "Product variant description is required"
+        // )
+        ,
+        // product_variant_sku: Yup.string()
+        // .required("Variant SKU is required")
+        // ,
+        product_variant_sku: Yup.string()
+          .nullable()
+          .transform((value) =>
+            value === "" ? null : value
+          ),
         product_variant_price: Yup.number()
           .typeError("Variant price must be a number")
           .required("Variant price is required")
@@ -138,25 +155,27 @@ export const ProductSchema = Yup.object().shape({
           .typeError("Variant discount must be a number"),
         product_variant_weight: Yup.number()
           .typeError("Variant weight must be a number")
-          .required("Variant weight is required")
+          // .required("Variant weight is required")
           .min(0, "Variant weight must be positive"),
         product_variant_length: Yup.number()
           .typeError("Variant length must be a number")
-          .required("Variant length is required")
+          // .required("Variant length is required")
           .min(0, "Variant length must be positive"),
         product_variant_breadth: Yup.number()
           .typeError("Variant breadth must be a number")
-          .required("Variant breadth is required")
+          // .required("Variant breadth is required")
           .min(0, "Variant breadth must be positive"),
         product_variant_height: Yup.number()
           .typeError("Variant height must be a number")
-          .required("Variant height is required")
+          // .required("Variant height is required")
           .min(0, "Variant height must be positive"),
 
         // Variant Images
         product_variant_images: Yup.array()
           .min(1, "At least one image is required for this variant")
-          .of(Yup.mixed().required("Variant image is required")),
+          .of(Yup.mixed()
+            .required("Variant image is required"))
+        ,
 
         // Sizes (if you have size section)
         sizes: Yup.array()
@@ -351,6 +370,7 @@ export default function ProductModal({
   }, [productForm]);
 
   const onSubmit = async (data: any) => {
+    console.log("jhgjhg")
     // setIsLoading(true);
     setErrorMessage('');
 
@@ -362,9 +382,9 @@ export default function ProductModal({
         brand_name: data?.brand_name,
         description: data?.description,
         description_2: data?.description_2,
-        commission: data?.commission,
-        cost: data?.cost,
-        sku: data?.sku,
+        commission: data?.commission ? data?.commission : 0,
+        cost: data?.cost ? data?.cost : 0,
+        sku: data?.sku ? data?.sku : null,
         price: data?.price,
         weight: data?.weight,
         length: data?.length,
@@ -392,12 +412,12 @@ export default function ProductModal({
         variant: data?.varieties?.map((item: any, index: number) => ({
           id: item?.id,
           product_variant_breadth: item?.product_variant_breadth,
-          product_variant_description: item?.product_variant_description,
+          product_variant_description: item?.product_variant_description ? item?.product_variant_description : data?.description,
           product_variant_discount: item?.product_variant_discount,
           product_variant_height: item?.product_variant_height,
           product_variant_length: item?.product_variant_length,
           product_variant_price: item?.product_variant_price,
-          product_variant_sku: item?.product_variant_sku,
+          product_variant_sku: item?.product_variant_sku ? item?.product_variant_sku : null,
           product_variant_stock_quantity: item?.product_variant_stock_quantity,
           product_variant_title: item?.product_variant_title,
           product_variant_weight: item?.product_variant_weight,
@@ -413,7 +433,7 @@ export default function ProductModal({
             product_size_discount: sizeItem?.product_size_discount,
             product_size_height: sizeItem?.product_size_height,
             product_size_length: sizeItem?.product_size_length,
-            product_size_sku: sizeItem?.product_size_sku,
+            product_size_sku: sizeItem?.product_size_sku ? sizeItem?.product_size_sku : null,
             product_size_stock_quantity: sizeItem?.product_size_stock_quantity,
             product_size_weight: sizeItem?.product_size_weight,
             ...(productForm ? { updated_by: "vendor" } : { created_by: "vendor" }),
@@ -421,7 +441,7 @@ export default function ProductModal({
         })),
       },
     };
-console.log(payload)
+    console.log(payload)
     try {
       let updateApi;
       if (productForm) {
@@ -549,48 +569,48 @@ console.log(payload)
                   <p className="text-red-500 text-sm mt-1">{typeof errors.brand_name?.message === 'string' ? errors.brand_name.message : ''}</p>
                 )}
               </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required type="number" label="Commission" {...register('commission')} />
                 {errors.commission && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.commission?.message === 'string' ? errors.commission.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required type="number" label="Cost" {...register('cost')} />
                 {errors.cost && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.cost?.message === 'string' ? errors.cost.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required label="Weight (Kg)" step="0.01" type="number" {...register('weight')} />
                 {errors.weight && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.weight?.message === 'string' ? errors.weight.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required label="Length (Cm)" type="number" {...register('length')} />
                 {errors.length && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.length?.message === 'string' ? errors.length.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required label="Breadth (Cm)" type="number" {...register('breadth')} />
                 {errors.breadth && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.breadth?.message === 'string' ? errors.breadth.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required label="Height (Cm)" type="number" {...register('height')} />
                 {errors.height && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.height?.message === 'string' ? errors.height.message : ''}</p>
                 )}
-              </div>
-              <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+              </div> */}
+              {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required type="string" label="SKU" {...register('sku')} />
                 {errors.sku && (
                   <p className="text-red-500 text-sm mt-1">{typeof errors.sku?.message === 'string' ? errors.sku.message : ''}</p>
                 )}
-              </div>
+              </div> */}
               <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                 <Input required type="number" label="Stock Quantity" {...register('stock_quantity')} />
                 {errors.stock_quantity && (
@@ -641,7 +661,7 @@ console.log(payload)
                 <textarea  {...register('description_2')} rows={3} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
               </div> */}
 
-              <div className='col-span-12 lg:col-span-6 py-1'>
+              {/* <div className='col-span-12 lg:col-span-6 py-1'>
                 <label className="block text-sm font-bold  mb-1">Keywords</label>
                 <textarea
                   {...register('keywords', {
@@ -657,9 +677,9 @@ console.log(payload)
                   placeholder="e.g. dairy, milk"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
-              </div>
+              </div> */}
 
-              <div className='col-span-12 lg:col-span-6'>
+              {/* <div className='col-span-12 lg:col-span-6'>
                 <label className="block text-sm font-bold  mb-1">Meta Tags</label>
                 <textarea
                   {...register('meta_tax', {
@@ -675,7 +695,7 @@ console.log(payload)
                   placeholder="e.g. dairy, milk"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
-              </div>
+              </div> */}
 
 
 
@@ -733,8 +753,8 @@ console.log(payload)
                       />
 
                     </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* Variant Description */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                   
                       <Input
                         required
                         label="Product Variant Description"
@@ -747,9 +767,9 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* SKU */}
+                    </div> */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                     
                       <Input
                         required
                         label="SKU"
@@ -762,7 +782,7 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
+                    </div> */}
                     <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                       {/* Price */}
                       <Input
@@ -796,8 +816,8 @@ console.log(payload)
                         )
                       }
                     </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* Weight */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                     
                       <Input
                         required
                         label="Weight (Kg)"
@@ -812,9 +832,9 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* Length */}
+                    </div> */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                   
                       <Input
                         required
                         label="Length (Cm)"
@@ -828,9 +848,9 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* Breadth */}
+                    </div> */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                  
                       <Input
                         required
                         label="Breadth (Cm)"
@@ -844,9 +864,9 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
-                    <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
-                      {/* Height */}
+                    </div> */}
+                    {/* <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
+                     
                       <Input
                         required
                         label="Height (Cm)"
@@ -860,7 +880,7 @@ console.log(payload)
                           </p>
                         )
                       }
-                    </div>
+                    </div> */}
                     <div className='col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6'>
                       <Input
                         type="number"
