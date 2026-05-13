@@ -43,31 +43,31 @@ export default function SizeSection({ control, register, varietyIndex }: any) {
                 label="Size MRP"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_discount`)}
               />
-              <Input
+              {/* <Input
                 required
                 label="Size Weight"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_weight`)}
-              />
-              <Input
+              /> */}
+              {/* <Input
                 required
                 label="Size Height"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_height`)}
-              />
-              <Input
+              /> */}
+              {/* <Input
                 required
                 label="Size Length"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_length`)}
-              />
-              <Input
+              /> */}
+              {/* <Input
                 required
                 label="Size Breadth"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_breadth`)}
-              />
-              <Input
+              /> */}
+              {/* <Input
                 required
                 label="Size Sku"
                 {...register(`varieties.${varietyIndex}.sizes.${sizeIndex}.product_size_sku`)}
-              />
+              /> */}
               <Input
                 required
                 label="Size Stock Quantity"
