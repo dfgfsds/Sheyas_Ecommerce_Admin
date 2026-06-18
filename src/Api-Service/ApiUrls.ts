@@ -38,6 +38,8 @@ const domainThemeUpdate = `${baseUrl}/domain_theme_update_api/`;
 const vendorLogin = `${baseUrl}/vendor_user_login/`;
 const vendorOtherDetails = `${baseUrl}/vendor-other-details/`;
 const vendorUserLogin = `${baseUrl}/vendor_user_login/`;
+const couponsGet = `${baseUrl}/get-coupons-by-vendor/`
+
 export default {
     multiVendor,
     multiVendorLogin,
@@ -74,4 +76,5 @@ export default {
     vendorLogin,
     vendorOtherDetails,
     vendorUserLogin,
+    couponsGet,
 };
